@@ -33,13 +33,13 @@ function appEnvironment (  $appEnvironmentProvider) {
       titlePrefix: 'LOCAL :: ',
       apiUrl: 'http://localhost:3580',
     })
-    .addEnvironment('prod', 'my.myjournal.com', {
+    .addEnvironment('prod', 'webapp.myjournal.xyz', {
       titlePrefix: '',
-      apiUrl: 'https://api.myjournal.com',
+      apiUrl: 'https://api.myjournal.xyz',
     })
-    .addEnvironment('prod2', 'https://my.myjournal.com', {
+    .addEnvironment('prod2', 'https://webapp.myjournal.xyz', {
       titlePrefix: '',
-      apiUrl: 'https://api.myjournal.com',
+      apiUrl: 'https://api.myjournal.xyz',
     })
     .defaultEnvironmentName('local');
 

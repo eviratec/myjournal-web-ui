@@ -25,6 +25,6 @@ angular.module('MyJournalWebui', [
   'MyJournalWebui.Api',
   'MyJournalWebui.Anon',
   'MyJournalWebui.User',
-  'MyJournalWebui.CategoryPage',
-  'MyJournalWebui.ListPage',
+  'MyJournalWebui.JournalPage',
+  'MyJournalWebui.EntryPage',
 ]);

@@ -17,9 +17,9 @@
 angular.module('MyJournalWebui.UserDashboard')
   .controller('DashboardController', DashboardController);
 
-DashboardController.$inject = ['$scope', '$mdDialog', 'userCategories'];
-function DashboardController (  $scope,   $mdDialog,   userCategories) {
+DashboardController.$inject = ['$scope', '$mdDialog', 'userJournals'];
+function DashboardController (  $scope,   $mdDialog,   userJournals) {
 
-  $scope.categories = userCategories;
+  $scope.journals = userJournals;
 
 };

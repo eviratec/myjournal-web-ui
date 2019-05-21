@@ -14,7 +14,7 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-angular.module('MyJournalWebui.CategoryPage', [
+angular.module('MyJournalWebui.EntryPage', [
   'ngAnimate',
   'ngAria',
   'ngCookies',

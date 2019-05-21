@@ -14,68 +14,49 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ListPage {
+#JournalPage {
 
   md-toolbar.page-header {
     background-color: #222;
   }
-  section#NoListItems {
-    .create-list {
-      margin: 8px;
-      span.placeholder-text {
-        font-size: 1.4em;
-        margin: 16px 0;
-        color: rgba(0,0,0,0.37);
-      }
-    }
-  }
-  section.list {
+  section.entries {
 
     margin-bottom: 16px;
 
-    header {
+    footer {
       padding: 16px;
-      h2 {
-        margin: 0;
-        font-size: 1.2em;
-        font-weight: 400;
-      }
     }
-    ol.items {
-
+    ul.entries {
       border-top: 1px solid rgba(0,0,0,0.12);
-      list-style-type: none;
+      entry-style-type: none;
       margin: 0;
       padding: 0;
-
+      background-color: rgba(255,255,255,0.5);
       li {
-
-        background-color: rgba(255,255,255,0.5);
         border-bottom: 1px solid rgba(0,0,0,0.12);
-
-        div.check-box {
-          button.md-button {
+        a {
+          line-height: 64px;
+          display: block;
+          padding: 0 24px;
+          color: rgba(0,0,0,0.87);
+          text-decoration: none;
+          md-icon {
+            margin-right: 24px;
+          }
+          pre.entry-date-occurred,
+          pre.entry-time-occurred, {
+            display: inline-block;
             margin: 0;
-            padding: 16px;
-            line-height: 48px;
-            width: 60px;
-            height: 60px;
-            .material-icons {
-              font-size: 24px;
-            }
           }
-        }
-        div.item-text {
-          padding: 8px 16px 8px 0;
-          a {
-            color: rgba(0,0,0,0.87);
+          pre.entry-time-occurred {
+            font-weight: 600;
+            margin-right: 24px;
           }
-        }
-        &.completed {
-          opacity: 0.5;
+          span.entry-title {
+            text-decoration: underline;
+          }
         }
       }
-
     }
 
   }

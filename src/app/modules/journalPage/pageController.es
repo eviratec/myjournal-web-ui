@@ -14,134 +14,134 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-angular.module('MyJournalWebui.CategoryPage')
-  .controller('CategoryPageController', CategoryPageController);
+angular.module('MyJournalWebui.JournalPage')
+  .controller('JournalPageController', JournalPageController);
 
-CategoryPageController.$inject = ['$api', '$scope', '$state', '$mdDialog', '$timeout', 'category'];
-function CategoryPageController (  $api,   $scope,   $state,   $mdDialog,   $timeout,   category) {
+JournalPageController.$inject = ['$api', '$scope', '$state', '$mdDialog', '$timeout', 'journal'];
+function JournalPageController (  $api,   $scope,   $state,   $mdDialog,   $timeout,   journal) {
 
-  const $categoryPage = this;
+  const $journalPage = this;
 
-  $categoryPage.category = category;
+  $journalPage.journal = journal;
 
-  checkCategoryExists();
+  checkJournalExists();
 
-  function checkCategoryExists () {
-    if (category) {
+  function checkJournalExists () {
+    if (journal) {
       return;
     }
 
     navToUserDashboard();
   }
 
-  $categoryPage.createList = function ($event) {
+  $journalPage.createEntry = function ($event) {
 
     var confirm = $mdDialog.prompt()
-      .title('Name your new list')
-      .placeholder('My List')
-      .ariaLabel('List title')
+      .title('Name your new entry')
+      .placeholder('My Entry')
+      .ariaLabel('Entry title')
       .initialValue('')
       .targetEvent($event)
-      .ok('Create List')
+      .ok('Create Entry')
       .cancel('Cancel');
 
     $mdDialog.show(confirm).then(function(result) {
-      createList(result);
+      createEntry(result);
     }, function() {
 
     });
 
   };
 
-  $categoryPage.deleteCategory = function ($event) {
+  $journalPage.deleteJournal = function ($event) {
 
     let confirm = $mdDialog.confirm()
       .title('Are you sure?')
-      .textContent(`This will permanently delete your category: ${category.Name}`)
-      .ariaLabel('Delete category')
+      .textContent(`This will permanently delete your journal: ${journal.Name}`)
+      .ariaLabel('Delete journal')
       .targetEvent($event)
-      .ok('Delete Category')
+      .ok('Delete Journal')
       .cancel('Cancel');
 
     $mdDialog.show(confirm).then(function() {
-      deleteCategory(category.Id);
+      deleteJournal(journal.Id);
     }, function() {
       // do nothing
     });
 
   };
 
-  $categoryPage.renameCategory = function ($event) {
+  $journalPage.renameJournal = function ($event) {
 
     var confirm = $mdDialog.prompt()
-      .title('Rename Category')
-      .placeholder(category.Name)
-      .ariaLabel('Category name')
-      .initialValue(category.Name)
+      .title('Rename Journal')
+      .placeholder(journal.Name)
+      .ariaLabel('Journal name')
+      .initialValue(journal.Name)
       .targetEvent($event)
       .ok('Save')
       .cancel('Cancel');
 
     $mdDialog.show(confirm).then(function(newValue) {
-      renameCategory(category.Id, newValue);
+      renameJournal(journal.Id, newValue);
     }, function() {
       // do nothing
     });
 
   };
 
-  function renameCategory (categoryId, newValue) {
-    if (category.Id !== categoryId) {
+  function renameJournal (journalId, newValue) {
+    if (journal.Id !== journalId) {
       return;
     }
 
-    $api.apiPutNewValue(`/category/${categoryId}/name`, newValue)
+    $api.apiPutNewValue(`/journal/${journalId}/name`, newValue)
       .then(function (res) {
-        updateCategoryName(newValue);
-        $scope.$emit(`category:renamed`, categoryId, newValue);
+        updateJournalName(newValue);
+        $scope.$emit(`journal:renamed`, journalId, newValue);
       })
       .catch(function (err) {
         console.log(err);
-        notifyRenameCategoryError();
+        notifyRenameJournalError();
       });
   }
 
-  function updateCategoryName (newValue) {
+  function updateJournalName (newValue) {
     $scope.$apply(function () {
-      category.Name = newValue;
+      journal.Name = newValue;
     });
   }
 
-  function deleteCategory (categoryId) {
-    if (category.Id !== categoryId) {
+  function deleteJournal (journalId) {
+    if (journal.Id !== journalId) {
       return;
     }
 
-    $api.apiDelete(`/category/${categoryId}`)
+    $api.apiDelete(`/journal/${journalId}`)
       .then(function (res) {
         navToUserDashboard();
       })
       .catch(function (err) {
         console.log(err);
-        notifyDeleteCategoryError();
+        notifyDeleteJournalError();
       });
   }
 
-  function notifyDeleteCategoryError () {
+  function notifyDeleteJournalError () {
     $mdDialog.show(
       $mdDialog.alert()
         .title('Error')
-        .textContent('An unexpected error was encountered while deleting the category.')
+        .textContent('An unexpected error was encountered while deleting the journal.')
         .ariaLabel('Error notification')
         .ok('Ok')
     );
   }
 
-  function notifyRenameCategoryError () {
+  function notifyRenameJournalError () {
     $mdDialog.show(
       $mdDialog.alert()
         .title('Error')
-        .textContent('An unexpected error was encountered while renaming the category.')
+        .textContent('An unexpected error was encountered while renaming the journal.')
         .ariaLabel('Error notification')
         .ok('Ok')
     );
@@ -151,25 +151,25 @@ function CategoryPageController (  $api,   $scope,   $state,   $mdDialog,   $tim
     $state.go('app.user.dashboard');
   }
 
-  function createList (title) {
+  function createEntry (title) {
 
-    let newList = {
-      CategoryId: category.Id,
-      Title: title,
+    let newEntry = {
+      JournalId: journal.Id,
+      Summary: title,
     };
 
-    $api.apiPost('/lists', newList)
+    $api.apiPost('/entries', newEntry)
       .then(function (res) {
         $timeout(function () {
-          Object.assign(newList, res.data);
-          newList.Id = res.data.Id;
+          Object.assign(newEntry, res.data);
+          newEntry.Id = res.data.Id;
         });
       })
       .catch(function (err) {
         console.log(err);
       });
 
-    $categoryPage.category.Lists.push(newList);
+    $journalPage.journal.Entries.push(newEntry);
 
   }
 

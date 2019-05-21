@@ -30,28 +30,28 @@
       <md-divider></md-divider>
 
       <md-subheader ng-click="showSidenavApps=!showSidenavApps">
-        My Categories
+        My Journals
       </md-subheader>
 
       <md-list-item ui-sref-active="active"
-        ui-sref="app.user.categoryPage({ categoryId: category.Id })"
-        ng-repeat="category in categories | orderBy: 'Name'"
-        ng-if="showSidenavCategories"
+        ui-sref="app.user.journalPage({ journalId: journal.Id })"
+        ng-repeat="journal in journals | orderBy: 'Name'"
+        ng-if="showSidenavJournals"
         ng-click="toggleSidenav('left')">
         <md-icon class="material-icons">
           folder
         </md-icon>
-        <p>{{ category.Name }}</p>
+        <p>{{ journal.Name }}</p>
       </md-list-item>
 
       <md-list-item
-        ng-click="createCategory()"
-        ng-if="showSidenavCategories"
+        ng-click="createJournal()"
+        ng-if="showSidenavJournals"
         ng-click="toggleSidenav('left')">
         <md-icon class="material-icons">
           create
         </md-icon>
-        <p>Create a Category</p>
+        <p>Create a Journal</p>
       </md-list-item>
 
     </md-list>

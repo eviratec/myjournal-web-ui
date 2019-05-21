@@ -1,0 +1,76 @@
+<!-- Entry Page -->
+<div id="EntryPage"
+  layout="row"
+  flex>
+  <div layout="column"
+    flex>
+
+    <!-- Entry Header -->
+    <md-toolbar class="page-header">
+      <div class="md-toolbar-tools">
+
+        <!-- Back Button -->
+        <md-button class="back-button md-icon-button"
+          ng-click="$entryPage.navToParent()">
+          <md-icon class="material-icons">
+            chevron_left
+          </md-icon>
+        </md-button>
+
+        <!-- Entry Title -->
+        <h1>{{ $entryPage.entry.Summary }}</h1>
+
+        <span flex></span>
+
+        <md-menu class="entry-tools">
+          <!-- trigger -->
+          <md-button class="menu-toggle md-icon-button"
+            aria-label="Open Settings"
+            ng-click="openMenu($mdMenu.open, $event)">
+            <md-icon class="material-icons">
+              settings_cog
+            </md-icon>
+          </md-button>
+          <!-- content -->
+          <md-menu-content width="4">
+            <md-menu-item>
+              <md-button ng-click="$entryPage.renameEntry($event)">
+                <md-icon>edit</md-icon>
+                Rename Entry
+              </md-button>
+            </md-menu-item>
+            <md-menu-divider></md-menu-divider>
+            <md-menu-item>
+              <md-button ng-click="$entryPage.deleteEntry($event)">
+                <md-icon>delete</md-icon>
+                Delete Entry
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
+      </div>
+    </md-toolbar>
+
+    <!-- Entry Content -->
+    <main layout="column"
+      flex>
+
+      <!-- No Entry Details Yet ... Section -->
+      <section id="NoEntryDetails"
+        layout="column"
+        flex>
+        <div class="create-entry"
+          layout="column"
+          layout-align="center center"
+          flex>
+          <span flex></span>
+          <span class="placeholder-text">No details yet ...</span>
+          <span flex></span>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+</div>

@@ -1,20 +1,20 @@
-<!-- Category Page -->
-<div id="CategoryPage"
+<!-- Journal Page -->
+<div id="JournalPage"
   layout="row"
   flex>
   <div layout="column"
     flex>
 
-    <!-- Category Header -->
+    <!-- Journal Header -->
     <md-toolbar class="page-header">
       <div class="md-toolbar-tools">
 
-        <!-- Category Title -->
-        <h1>{{ $categoryPage.category.Name }}</h1>
+        <!-- Journal Title -->
+        <h1>{{ $journalPage.journal.Name }}</h1>
 
         <span flex></span>
 
-        <md-menu class="category-tools">
+        <md-menu class="journal-tools">
           <!-- trigger -->
           <md-button class="menu-toggle md-icon-button"
             aria-label="Open Settings"
@@ -26,16 +26,16 @@
           <!-- content -->
           <md-menu-content width="4">
             <md-menu-item>
-              <md-button ng-click="$categoryPage.renameCategory($event)">
+              <md-button ng-click="$journalPage.renameJournal($event)">
                 <md-icon>edit</md-icon>
-                Rename Category
+                Rename Journal
               </md-button>
             </md-menu-item>
             <md-menu-divider></md-menu-divider>
             <md-menu-item>
-              <md-button ng-click="$categoryPage.deleteCategory($event)">
+              <md-button ng-click="$journalPage.deleteJournal($event)">
                 <md-icon>delete</md-icon>
-                Delete Category
+                Delete Journal
               </md-button>
             </md-menu-item>
           </md-menu-content>
@@ -44,24 +44,23 @@
       </div>
     </md-toolbar>
 
-    <!-- Category Content -->
+    <!-- Journal Content -->
     <main>
 
-      <!-- Category Lists Section -->
-      <section class="lists">
+      <!-- Journal Entries Section -->
+      <section class="entries">
 
-        <!-- Category Lists -->
-        <ul class="lists">
+        <!-- Journal Entries -->
+        <ul class="entries">
 
-          <!-- List -->
-          <li ng-repeat="list in $categoryPage.category.Lists | orderBy: 'Created'">
-            <a ui-sref="app.user.listPage({ listId: list.Id })"
+          <!-- Entry -->
+          <li ng-repeat="entry in $journalPage.journal.Entries | orderBy: 'Occurred'">
+            <a ui-sref="app.user.entryPage({ entryId: entry.Id })"
               layout="row"
               flex>
-              <md-icon class="material-icons">
-                list_alt
-              </md-icon>
-              <span class="list-title">{{ list.Title }}</span>
+              <pre class="entry-date-occurred">{{ entry.Occurred*1000 | date:'MM/dd' }}</pre>
+              <pre class="entry-time-occurred">{{ entry.Occurred*1000 | date:'HH:mm:ss' }}</pre>
+              <span class="entry-title">{{ entry.Summary }}</span>
             </a>
           </li>
 
@@ -70,9 +69,9 @@
         <!-- Section Footer -->
         <footer>
 
-          <!-- Create A New List Button -->
+          <!-- Create A New Entry Button -->
           <md-button class="md-raised md-primary"
-            ng-click="$categoryPage.createList()">
+            ng-click="$journalPage.createEntry()">
 
             <!-- Icon -->
             <md-icon class="material-icons">
@@ -80,7 +79,7 @@
             </md-icon>
 
             <!-- Text -->
-            <span>Create a new list</span>
+            <span>Create a new entry</span>
 
           </md-button>
 

@@ -14,29 +14,12 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-angular.module('MyJournalWebui.ListPage')
-  .config(['$stateProvider', function ($stateProvider) {
-
-    $stateProvider
-
-      .state('app.user.listPage', {
-        url: '/list/:listId',
-        templateUrl: 'modules/listPage/html/page.html',
-        controller: 'ListPageController',
-        controllerAs: '$listPage',
-        resolve: {
-          list: ['$api', '$stateParams', function ($api, $stateParams) {
-            let listId = $stateParams.listId;
-            return $api.apiGet(`/list/${listId}`)
-              .then(function (res) {
-                return res.data;
-              })
-              .catch(function (err) {
-                console.log(err);
-                return {};
-              });
-          }],
-        },
-      });
-
-}]);
+angular.module('MyJournalWebui.JournalPage', [
+  'ngAnimate',
+  'ngAria',
+  'ngCookies',
+  'ngMaterial',
+  'ngMessages',
+  'ui.router',
+  'luminous.environment',
+]);

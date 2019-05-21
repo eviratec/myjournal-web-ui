@@ -14,40 +14,27 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-angular.module('MyJournalWebui.User')
+angular.module('MyJournalWebui.JournalPage')
   .config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
 
-      .state('app.user', {
-        templateUrl: 'modules/user/html/root.html',
-        controller: 'UserController',
-        controllerAs: '$user',
-        abstract: true,
+      .state('app.user.journalPage', {
+        url: '/journal/:journalId',
+        templateUrl: 'modules/journalPage/html/page.html',
+        controller: 'JournalPageController',
+        controllerAs: '$journalPage',
         resolve: {
-          userJournals: ['$api', function ($api) {
-            return $api.apiGet('/journals/all')
+          journal: ['$api', '$stateParams', function ($api, $stateParams) {
+            let journalId = $stateParams.journalId;
+            return $api.apiGet(`/journal/${journalId}`)
               .then(function (res) {
                 return res.data;
               })
               .catch(function (err) {
                 console.log(err);
-                return [];
+                return {};
               });
-          }],
-          user: ['$auth', '$api', '$state', function ($auth, $api, $state) {
-            try {
-              return $api.apiGet(`/user/${$auth.user.Id}`)
-                .then(function (res) {
-                  return res.data;
-                })
-                .catch(function (err) {
-                  $state.go('app.anon.login');
-                });
-            }
-            catch (err) {
-              $state.go('app.anon.login');
-            }
           }],
         },
       });

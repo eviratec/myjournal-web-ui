@@ -17,8 +17,8 @@
 angular.module('MyJournalWebui.User')
   .controller('UserController', UserController);
 
-UserController.$inject = ['$api', '$scope', '$rootScope', '$auth', '$state', '$mdDialog', '$timeout', 'user', 'userCategories'];
-function UserController (  $api,   $scope,   $rootScope,   $auth,   $state,   $mdDialog,   $timeout,   user,   userCategories) {
+UserController.$inject = ['$api', '$scope', '$rootScope', '$auth', '$state', '$mdDialog', '$timeout', 'user', 'userJournals'];
+function UserController (  $api,   $scope,   $rootScope,   $auth,   $state,   $mdDialog,   $timeout,   user,   userJournals) {
 
   $rootScope.$on('unauthorized', () => {
     $state.go('app.anon.login');
@@ -28,64 +28,64 @@ function UserController (  $api,   $scope,   $rootScope,   $auth,   $state,   $m
     $state.go('app.anon.login');
   }
 
-  $scope.showSidenavCategories = true;
-  $scope.categories = userCategories;
+  $scope.showSidenavJournals = true;
+  $scope.journals = userJournals;
   $scope.user = user;
 
   $scope.login = user.Login;
 
-  $scope.$on(`category:renamed`, updateCategoryName);
+  $scope.$on(`journal:renamed`, updateJournalName);
 
-  $scope.createCategory = function ($event) {
+  $scope.createJournal = function ($event) {
 
     var confirm = $mdDialog.prompt()
-      .title('Name your new category')
-      .placeholder('My Category')
-      .ariaLabel('Category name')
+      .title('Name your new journal')
+      .placeholder('My Journal')
+      .ariaLabel('Journal name')
       .initialValue('')
       .targetEvent($event)
-      .ok('Create Category')
+      .ok('Create Journal')
       .cancel('Cancel');
 
     $mdDialog.show(confirm).then(function(result) {
-      createCategory(result);
+      createJournal(result);
     }, function() {
 
     });
 
   };
 
-  function createCategory (name) {
+  function createJournal (name) {
 
-    let newCategory = {
+    let newJournal = {
       Name: name,
     };
 
-    $api.apiPost('/categories', newCategory)
+    $api.apiPost('/journals', newJournal)
       .then(function (res) {
         $timeout(function () {
-          Object.assign(newCategory, res.data);
-          newCategory.Id = res.data.Id;
+          Object.assign(newJournal, res.data);
+          newJournal.Id = res.data.Id;
         });
       })
       .catch(function (err) {
         console.log(err);
       });
 
-    $scope.categories.push(newCategory);
+    $scope.journals.push(newJournal);
 
   }
 
-  function updateCategoryName ($event, categoryId, newValue) {
-    let category = getUserCategoryById(categoryId);
+  function updateJournalName ($event, journalId, newValue) {
+    let journal = getUserJournalById(journalId);
     $scope.$apply(function () {
-      category.Name = newValue;
+      journal.Name = newValue;
     });
   }
 
-  function getUserCategoryById (categoryId) {
-    return userCategories.filter(category => {
-      return category.Id === categoryId;
+  function getUserJournalById (journalId) {
+    return userJournals.filter(journal => {
+      return journal.Id === journalId;
     })[0];
   }
 

@@ -14,20 +14,20 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-angular.module('MyJournalWebui.CategoryPage')
+angular.module('MyJournalWebui.EntryPage')
   .config(['$stateProvider', function ($stateProvider) {
 
     $stateProvider
 
-      .state('app.user.categoryPage', {
-        url: '/category/:categoryId',
-        templateUrl: 'modules/categoryPage/html/page.html',
-        controller: 'CategoryPageController',
-        controllerAs: '$categoryPage',
+      .state('app.user.entryPage', {
+        url: '/entry/:entryId',
+        templateUrl: 'modules/entryPage/html/page.html',
+        controller: 'EntryPageController',
+        controllerAs: '$entryPage',
         resolve: {
-          category: ['$api', '$stateParams', function ($api, $stateParams) {
-            let categoryId = $stateParams.categoryId;
-            return $api.apiGet(`/category/${categoryId}`)
+          entry: ['$api', '$stateParams', function ($api, $stateParams) {
+            let entryId = $stateParams.entryId;
+            return $api.apiGet(`/entry/${entryId}`)
               .then(function (res) {
                 return res.data;
               })

@@ -14,6 +14,20 @@
 
         <span flex></span>
 
+        <!-- Create A New Transaction Button -->
+        <md-button class="md-raised md-primary create-entry-button"
+          ng-click="$journalPage.createEntry()">
+
+          <!-- Icon -->
+          <md-icon class="material-icons">
+            add
+          </md-icon>
+
+          <!-- Text -->
+          <span>Entry</span>
+
+        </md-button>
+
         <md-menu class="journal-tools">
           <!-- trigger -->
           <md-button class="menu-toggle md-icon-button"
@@ -50,40 +64,34 @@
       <!-- Journal Entries Section -->
       <section class="entries">
 
-        <!-- Journal Entries -->
-        <ul class="entries">
+        <!-- Journal Days -->
+        <ul class="logbook-days">
 
-          <!-- Entry -->
-          <li ng-repeat="entry in $journalPage.journal.Entries | orderBy: 'Occurred'">
-            <a ui-sref="app.user.entryPage({ entryId: entry.Id })"
-              layout="row"
-              flex>
-              <pre class="entry-date-occurred">{{ entry.Occurred*1000 | date:'MM/dd' }}</pre>
-              <pre class="entry-time-occurred">{{ entry.Occurred*1000 | date:'HH:mm:ss' }}</pre>
-              <span class="entry-title">{{ entry.Summary }}</span>
-            </a>
+          <!-- Day -->
+          <li ng-repeat="day in $journalPage.days | orderBy: '-date'">
+            <md-subheader>
+              {{ day.date }}
+            </md-subheader>
+
+            <!-- Journal Entries -->
+            <ul class="entries">
+
+              <!-- Entry -->
+              <li ng-repeat="entry in day.entries | orderBy: '-Occurred'">
+                <a ui-sref="app.user.entryPage({ entryId: entry.Id })"
+                  layout="row"
+                  layout-align="start start"
+                  flex>
+                  <pre class="entry-time-occurred">{{ entry.Occurred*1000 | date:'HH:mm:ss' }}</pre>
+                  <span class="entry-title">{{ entry.Summary }}</span>
+                </a>
+              </li>
+
+            </ul>
+
           </li>
 
         </ul>
-
-        <!-- Section Footer -->
-        <footer>
-
-          <!-- Create A New Entry Button -->
-          <md-button class="md-raised md-primary"
-            ng-click="$journalPage.createEntry()">
-
-            <!-- Icon -->
-            <md-icon class="material-icons">
-              create
-            </md-icon>
-
-            <!-- Text -->
-            <span>Create a new entry</span>
-
-          </md-button>
-
-        </footer>
 
       </section>
 

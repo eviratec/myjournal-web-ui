@@ -26,34 +26,35 @@
     footer {
       padding: 16px;
     }
-    ul.entries {
-      border-top: 1px solid rgba(0,0,0,0.12);
-      entry-style-type: none;
+    ul.logbook-days {
+      list-style-type: none;
       margin: 0;
       padding: 0;
-      background-color: rgba(255,255,255,0.5);
-      li {
-        border-bottom: 1px solid rgba(0,0,0,0.12);
-        a {
-          line-height: 64px;
-          display: block;
-          padding: 0 24px;
-          color: rgba(0,0,0,0.87);
-          text-decoration: none;
-          md-icon {
-            margin-right: 24px;
-          }
-          pre.entry-date-occurred,
-          pre.entry-time-occurred, {
-            display: inline-block;
-            margin: 0;
-          }
-          pre.entry-time-occurred {
-            font-weight: 600;
-            margin-right: 24px;
-          }
-          span.entry-title {
-            text-decoration: underline;
+      div.md-subheader {
+        background-color: #eee;
+      }
+      ul.entries {
+        border-top: 1px solid rgba(0,0,0,0.12);
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background-color: rgba(255,255,255,0.5);
+        li {
+          border-bottom: 1px solid rgba(0,0,0,0.12);
+          a {
+            line-height: 1.75em;
+            padding: 12px 16px;
+            color: rgba(0,0,0,0.87);
+            text-decoration: none;
+            md-icon {
+              margin-right: 24px;
+            }
+            pre.entry-time-occurred {
+              margin: 0 24px 0 0;
+              color: rgba(0,0,0,0.37);
+              display: inline-block;
+              font-size: 0.8em;
+            }
           }
         }
       }

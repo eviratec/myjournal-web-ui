@@ -14,22 +14,24 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#EntryPage {
+angular.module('MyJournalWebui.EntryPage')
+  .controller('ChangeEntrySummaryDialogController', ChangeEntrySummaryDialogController);
 
-  md-toolbar.page-header {
-    background-color: #222;
-    h1 {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 50%;
-    }
-  }
-  #EntrySummary {
-    div.body {
-      padding: 24px;
-      line-height: 1.75em;
-    }
-  }
+ChangeEntrySummaryDialogController.$inject = ['$scope', '$timeout', '$mdDialog', 'entry'];
+function ChangeEntrySummaryDialogController (  $scope,   $timeout,   $mdDialog,   entry) {
+  $scope.$data = {
+    Summary: entry.Summary,
+  };
 
+  $scope.hide = function() {
+    $mdDialog.cancel();
+  };
+
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+
+  $scope.answer = function() {
+    $mdDialog.hide($scope.$data.Summary);
+  };
 }

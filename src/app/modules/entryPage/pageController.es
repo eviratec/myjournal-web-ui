@@ -46,26 +46,51 @@ function EntryPageController (  $api,   $scope,   $state,   $mdDialog,   $timeou
 
   };
 
-  $entryPage.renameEntry = function ($event) {
+  $entryPage.changeSummary = function ($event) {
 
-    var confirm = $mdDialog.prompt()
-      .title('Rename Entry')
-      .placeholder(entry.Summary)
-      .ariaLabel('Entry title')
-      .initialValue(entry.Summary)
-      .targetEvent($event)
-      .ok('Save')
-      .cancel('Cancel');
+    let changeEntrySummaryDialog = {
+      controller: 'ChangeEntrySummaryDialogController',
+      templateUrl: 'modules/entryPage/html/dialogs/changeSummary.html',
+      parent: angular.element(document.body),
+      targetEvent: $event,
+      clickOutsideToClose: true,
+      fullscreen: true,
+      locals: {
+        entry: entry,
+      },
+    };
 
-    $mdDialog.show(confirm).then(function(newValue) {
-      renameEntry(entry.Id, newValue);
+    $mdDialog.show(changeEntrySummaryDialog).then(function(newValue) {
+      changeSummary(entry.Id, newValue);
     }, function() {
-      // do nothing
+
     });
 
   };
 
-  function renameEntry (entryId, newValue) {
+  $entryPage.changeOccurred = function ($event) {
+
+    let changeEntryOccurredDialog = {
+      controller: 'ChangeEntryOccurredDialogController',
+      templateUrl: 'modules/entryPage/html/dialogs/changeOccurred.html',
+      parent: angular.element(document.body),
+      targetEvent: $event,
+      clickOutsideToClose: true,
+      fullscreen: true,
+      locals: {
+        entry: entry,
+      },
+    };
+
+    $mdDialog.show(changeEntryOccurredDialog).then(function(newValue) {
+      changeOccurred(entry.Id, Math.round(newValue/1000));
+    }, function() {
+
+    });
+
+  };
+
+  function changeSummary (entryId, newValue) {
     if (entry.Id !== entryId) {
       return;
     }
@@ -76,13 +101,34 @@ function EntryPageController (  $api,   $scope,   $state,   $mdDialog,   $timeou
       })
       .catch(function (err) {
         console.log(err);
-        notifyRenameEntryError();
+        notifyUpdateEntryError();
       });
   }
 
   function updateEntrySummary (newValue) {
     $scope.$apply(function () {
       entry.Summary = newValue;
+    });
+  }
+
+  function changeOccurred (entryId, newValue) {
+    if (entry.Id !== entryId) {
+      return;
+    }
+
+    $api.apiPutNewValue(`/entry/${entryId}/occurred`, newValue)
+      .then(function (res) {
+        updateEntryOccurred(newValue);
+      })
+      .catch(function (err) {
+        console.log(err);
+        notifyUpdateEntryError();
+      });
+  }
+
+  function updateEntryOccurred (newValue) {
+    $scope.$apply(function () {
+      entry.Occurred = newValue;
     });
   }
 
@@ -111,11 +157,11 @@ function EntryPageController (  $api,   $scope,   $state,   $mdDialog,   $timeou
     );
   }
 
-  function notifyRenameEntryError () {
+  function notifyUpdateEntryError () {
     $mdDialog.show(
       $mdDialog.alert()
         .title('Error')
-        .textContent('An unexpected error was encountered while renaming the entry.')
+        .textContent('An unexpected error was encountered while updating the entry.')
         .ariaLabel('Error notification')
         .ok('Ok')
     );

@@ -34,9 +34,15 @@
           <!-- content -->
           <md-menu-content width="4">
             <md-menu-item>
-              <md-button ng-click="$entryPage.renameEntry($event)">
+              <md-button ng-click="$entryPage.changeSummary($event)">
                 <md-icon>edit</md-icon>
-                Rename Entry
+                Change Summary
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="$entryPage.changeOccurred($event)">
+                <md-icon>edit</md-icon>
+                Change Occurred
               </md-button>
             </md-menu-item>
             <md-menu-divider></md-menu-divider>
@@ -57,17 +63,16 @@
       flex>
 
       <!-- No Entry Details Yet ... Section -->
-      <section id="NoEntryDetails"
+      <section id="EntrySummary"
         layout="column"
         flex>
-        <div class="create-entry"
-          layout="column"
-          layout-align="center center"
-          flex>
-          <span flex></span>
-          <span class="placeholder-text">No details yet ...</span>
-          <span flex></span>
+        <div class="body">
+          {{ $entryPage.entry.Summary }}
         </div>
+        <md-button ng-click="$entryPage.changeSummary($event)">
+          <md-icon>edit</md-icon>
+          Change Summary
+        </md-button>
       </section>
 
     </main>

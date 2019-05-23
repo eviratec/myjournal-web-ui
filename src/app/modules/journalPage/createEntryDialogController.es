@@ -14,22 +14,30 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#EntryPage {
+angular.module('MyJournalWebui.JournalPage')
+  .controller('CreateEntryDialogController', CreateEntryDialogController);
 
-  md-toolbar.page-header {
-    background-color: #222;
-    h1 {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 50%;
-    }
-  }
-  #EntrySummary {
-    div.body {
-      padding: 24px;
-      line-height: 1.75em;
-    }
-  }
+CreateEntryDialogController.$inject = ['$scope', '$timeout', '$mdDialog', 'journal'];
+function CreateEntryDialogController (  $scope,   $timeout,   $mdDialog,   journal) {
+  $scope.$data = {
+    Summary: '',
+    Occurred: new Date(Math.round(Date.now()/1000)*1000),
+  };
 
+  $scope.journal = journal;
+
+  $scope.hide = function() {
+    $mdDialog.cancel();
+  };
+
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+
+  $scope.answer = function() {
+    $mdDialog.hide({
+      Summary: $scope.$data.Summary,
+      Occurred: Math.round($scope.$data.Occurred.getTime()/1000),
+    });
+  };
 }

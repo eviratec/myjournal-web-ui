@@ -13735,44 +13735,15 @@ md-content.ds-main-content {
  */
 #EntryPage md-toolbar.page-header {
   background-color: #222; }
+  #EntryPage md-toolbar.page-header h1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50%; }
 
-#EntryPage section#NoEntryItems .create-entry {
-  margin: 8px; }
-  #EntryPage section#NoEntryItems .create-entry span.placeholder-text {
-    font-size: 1.4em;
-    margin: 16px 0;
-    color: rgba(0, 0, 0, 0.37); }
-
-#EntryPage section.entry {
-  margin-bottom: 16px; }
-  #EntryPage section.entry header {
-    padding: 16px; }
-    #EntryPage section.entry header h2 {
-      margin: 0;
-      font-size: 1.2em;
-      font-weight: 400; }
-  #EntryPage section.entry ol.items {
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
-    entry-style-type: none;
-    margin: 0;
-    padding: 0; }
-    #EntryPage section.entry ol.items li {
-      background-color: rgba(255, 255, 255, 0.5);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-      #EntryPage section.entry ol.items li div.check-box button.md-button {
-        margin: 0;
-        padding: 16px;
-        line-height: 48px;
-        width: 60px;
-        height: 60px; }
-        #EntryPage section.entry ol.items li div.check-box button.md-button .material-icons {
-          font-size: 24px; }
-      #EntryPage section.entry ol.items li div.item-text {
-        padding: 8px 16px 8px 0; }
-        #EntryPage section.entry ol.items li div.item-text a {
-          color: rgba(0, 0, 0, 0.87); }
-      #EntryPage section.entry ol.items li.completed {
-        opacity: 0.5; }
+#EntryPage #EntrySummary div.body {
+  padding: 24px;
+  line-height: 1.75em; }
 
 /**
  * Copyright (c) 2019 Callan Peter Milne
@@ -13796,31 +13767,32 @@ md-content.ds-main-content {
   margin-bottom: 16px; }
   #JournalPage section.entries footer {
     padding: 16px; }
-  #JournalPage section.entries ul.entries {
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
-    entry-style-type: none;
+  #JournalPage section.entries ul.logbook-days {
+    list-style-type: none;
     margin: 0;
-    padding: 0;
-    background-color: rgba(255, 255, 255, 0.5); }
-    #JournalPage section.entries ul.entries li {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-      #JournalPage section.entries ul.entries li a {
-        line-height: 64px;
-        display: block;
-        padding: 0 24px;
-        color: rgba(0, 0, 0, 0.87);
-        text-decoration: none; }
-        #JournalPage section.entries ul.entries li a md-icon {
-          margin-right: 24px; }
-        #JournalPage section.entries ul.entries li a pre.entry-date-occurred,
-        #JournalPage section.entries ul.entries li a pre.entry-time-occurred {
-          display: inline-block;
-          margin: 0; }
-        #JournalPage section.entries ul.entries li a pre.entry-time-occurred {
-          font-weight: 600;
-          margin-right: 24px; }
-        #JournalPage section.entries ul.entries li a span.entry-title {
-          text-decoration: underline; }
+    padding: 0; }
+    #JournalPage section.entries ul.logbook-days div.md-subheader {
+      background-color: #eee; }
+    #JournalPage section.entries ul.logbook-days ul.entries {
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      background-color: rgba(255, 255, 255, 0.5); }
+      #JournalPage section.entries ul.logbook-days ul.entries li {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+        #JournalPage section.entries ul.logbook-days ul.entries li a {
+          line-height: 1.75em;
+          padding: 12px 16px;
+          color: rgba(0, 0, 0, 0.87);
+          text-decoration: none; }
+          #JournalPage section.entries ul.logbook-days ul.entries li a md-icon {
+            margin-right: 24px; }
+          #JournalPage section.entries ul.logbook-days ul.entries li a pre.entry-time-occurred {
+            margin: 0 24px 0 0;
+            color: rgba(0, 0, 0, 0.37);
+            display: inline-block;
+            font-size: 0.8em; }
 
 /**
  * Copyright (c) 2019 Callan Peter Milne

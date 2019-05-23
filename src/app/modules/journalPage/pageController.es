@@ -22,9 +22,15 @@ function JournalPageController (  $api,   $scope,   $state,   $mdDialog,   $time
 
   const $journalPage = this;
 
+  const journalPageDays = [];
+
   $journalPage.journal = journal;
 
+  $journalPage.days = journalPageDays;
+
   checkJournalExists();
+
+  initJournalDays();
 
   function checkJournalExists () {
     if (journal) {
@@ -36,17 +42,20 @@ function JournalPageController (  $api,   $scope,   $state,   $mdDialog,   $time
 
   $journalPage.createEntry = function ($event) {
 
-    var confirm = $mdDialog.prompt()
-      .title('Name your new entry')
-      .placeholder('My Entry')
-      .ariaLabel('Entry title')
-      .initialValue('')
-      .targetEvent($event)
-      .ok('Create Entry')
-      .cancel('Cancel');
+    let createEntryDialog = {
+      controller: 'CreateEntryDialogController',
+      templateUrl: 'modules/journalPage/html/dialogs/createEntry.html',
+      parent: angular.element(document.body),
+      targetEvent: $event,
+      clickOutsideToClose: true,
+      fullscreen: true,
+      locals: {
+        journal: journal,
+      },
+    };
 
-    $mdDialog.show(confirm).then(function(result) {
-      createEntry(result);
+    $mdDialog.show(createEntryDialog).then(function(data) {
+      createEntry(data);
     }, function() {
 
     });
@@ -151,11 +160,11 @@ function JournalPageController (  $api,   $scope,   $state,   $mdDialog,   $time
     $state.go('app.user.dashboard');
   }
 
-  function createEntry (title) {
-
+  function createEntry (data) {
     let newEntry = {
       JournalId: journal.Id,
-      Summary: title,
+      Summary: data.Summary,
+      Occurred: data.Occurred,
     };
 
     $api.apiPost('/entries', newEntry)
@@ -171,6 +180,64 @@ function JournalPageController (  $api,   $scope,   $state,   $mdDialog,   $time
 
     $journalPage.journal.Entries.push(newEntry);
 
+    addEntryToJournalDay(newEntry);
   }
 
+
+  function addEntryToJournalDay (entry) {
+    let date = getEntryDayDate(entry);
+    let journalDay = getJournalDayByDate(date);
+
+    if (null === journalDay) {
+      journalDay = addJournalDay(date);
+    }
+
+    journalDay.entries.push(entry);
+  }
+
+  function getEntryDayDate (entry) {
+    let date = new Date(entry.Occurred*1000);
+
+    return [
+      date.getFullYear(),
+      (date.getMonth()+1).toString().padStart(2, '0'),
+      date.getDate().toString().padStart(2, '0')
+    ].join('-');
+  }
+
+  function initJournalDays () {
+    journal.Entries.forEach(addEntryToJournalDay);
+  }
+
+  function addJournalDay (date) {
+    let entries = [];
+    let journalDay = {};
+
+    Object.defineProperties(journalDay, {
+      date: {
+        value: date,
+        enumerable: true,
+      },
+      entries: {
+        value: entries,
+        enumerable: true,
+      },
+    });
+
+    journalPageDays.push(journalDay);
+
+    return journalDay;
+  }
+
+  function getJournalDayByDate (date) {
+    let journalDay = journalPageDays.filter(day => {
+      return day.date === date;
+    })[0];
+
+    if (!journalDay) {
+      return null;
+    }
+
+    return journalDay;
+  }
 };

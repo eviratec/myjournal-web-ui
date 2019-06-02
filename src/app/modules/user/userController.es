@@ -28,6 +28,8 @@ function UserController (  $api,   $scope,   $rootScope,   $auth,   $state,   $m
     $state.go('app.anon.login');
   }
 
+  $api.watchApiProgress($scope, 'showProgress');
+
   $scope.showSidenavJournals = true;
   $scope.journals = userJournals;
   $scope.user = user;

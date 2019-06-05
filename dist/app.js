@@ -1255,6 +1255,31 @@ function JournalPageController($api, $scope, $state, $mdDialog, $timeout, journa
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
+angular.module('MyJournalWebui.UserDashboard').controller('DashboardController', DashboardController);
+
+DashboardController.$inject = ['$scope', '$mdDialog', 'userJournals'];
+function DashboardController($scope, $mdDialog, userJournals) {
+
+  $scope.journals = userJournals;
+};
+'use strict';
+
+/**
+ * Copyright (c) 2019 Callan Peter Milne
+ *
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+ * REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+ * INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+ * LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+ * OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+ * PERFORMANCE OF THIS SOFTWARE.
+ */
+
 angular.module('MyJournalWebui.User').controller('LayoutController', LayoutController);
 
 LayoutController.$inject = ['$scope', '$mdDialog', '$mdToast', '$logout', '$mdSidenav'];
@@ -1415,70 +1440,6 @@ function UserController($api, $scope, $rootScope, $auth, $state, $mdDialog, $tim
     })[0];
   }
 };
-'use strict';
-
-/**
- * Copyright (c) 2019 Callan Peter Milne
- *
- * Permission to use, copy, modify, and/or distribute this software for any
- * purpose with or without fee is hereby granted, provided that the above
- * copyright notice and this permission notice appear in all copies.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
- * REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
- * INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
- * LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
- * OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
- * PERFORMANCE OF THIS SOFTWARE.
- */
-
-angular.module('MyJournalWebui.UserDashboard').controller('DashboardController', DashboardController);
-
-DashboardController.$inject = ['$scope', '$mdDialog', 'userJournals'];
-function DashboardController($scope, $mdDialog, userJournals) {
-
-  $scope.journals = userJournals;
-};
-'use strict';
-
-/**
- * Copyright (c) 2019 Callan Peter Milne
- *
- * Permission to use, copy, modify, and/or distribute this software for any
- * purpose with or without fee is hereby granted, provided that the above
- * copyright notice and this permission notice appear in all copies.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
- * REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
- * INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
- * LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
- * OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
- * PERFORMANCE OF THIS SOFTWARE.
- */
-
-angular.module('MyJournalWebui.Anon').directive('mustMatch', MustMatchDirective);
-
-MustMatchDirective.$inject = [];
-function MustMatchDirective() {
-  return {
-    require: 'ngModel',
-    link: function link(scope, elm, attrs, ctrl) {
-      ctrl.$validators.mustMatch = function (modelValue, viewValue) {
-        // Value of other field this one must match
-        var matchTargetValue = scope.$eval(attrs.mustMatch);
-        if (modelValue === matchTargetValue) {
-          // it is valid
-          return true;
-        }
-
-        // it is invalid
-        return false;
-      };
-    }
-  };
-}
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1985,6 +1946,45 @@ function UserFactory() {
   };
 
   return User;
+}
+'use strict';
+
+/**
+ * Copyright (c) 2019 Callan Peter Milne
+ *
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+ * REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+ * INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+ * LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+ * OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+ * PERFORMANCE OF THIS SOFTWARE.
+ */
+
+angular.module('MyJournalWebui.Anon').directive('mustMatch', MustMatchDirective);
+
+MustMatchDirective.$inject = [];
+function MustMatchDirective() {
+  return {
+    require: 'ngModel',
+    link: function link(scope, elm, attrs, ctrl) {
+      ctrl.$validators.mustMatch = function (modelValue, viewValue) {
+        // Value of other field this one must match
+        var matchTargetValue = scope.$eval(attrs.mustMatch);
+        if (modelValue === matchTargetValue) {
+          // it is valid
+          return true;
+        }
+
+        // it is invalid
+        return false;
+      };
+    }
+  };
 }
 'use strict';
 

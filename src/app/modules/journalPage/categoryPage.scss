@@ -31,27 +31,27 @@
       margin: 0;
       padding: 0;
       div.md-subheader {
-        background-color: #eee;
+        background-color: rgb(36,36,36);
       }
       ul.entries {
-        border-top: 1px solid rgba(0,0,0,0.12);
+        border-top: 1px solid rgba(255,255,255,0.12);
         list-style-type: none;
         margin: 0;
         padding: 0;
-        background-color: rgba(255,255,255,0.5);
+        background-color: rgb(66,66,66);
         li {
-          border-bottom: 1px solid rgba(0,0,0,0.12);
+          border-bottom: 1px solid rgba(255,255,255,0.12);
           a {
             line-height: 1.75em;
             padding: 12px 16px;
-            color: rgba(0,0,0,0.87);
+            color: rgba(255,255,255, 1);
             text-decoration: none;
             md-icon {
               margin-right: 24px;
             }
             pre.entry-time-occurred {
               margin: 0 24px 0 0;
-              color: rgba(0,0,0,0.37);
+              color: rgba(255,255,255, 0.5);
               display: inline-block;
               font-size: 0.8em;
             }
